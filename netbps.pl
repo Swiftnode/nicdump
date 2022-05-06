@@ -28,7 +28,7 @@ while (<>) {
                         my $date = strftime '%Y-%m-%d-%H-%M-%S', localtime;
                         if ($bps >= $bps_to_dump) {
                                 printf($date." Dumping network traffic (".$interface.") to file. >=".$bps_to_dump." BPS\n".$date." File name: ".$dumps_directory."/attacklog-".$date.".pcap [YYYY-MM-DD-HH-MM-SS]\n");
-                                system("tcpdump -i ".$interface." -c ".$packet_dump_size." -w ".$dumps_directory."/attacklog-".$date."_.pcap");
+                                system("tcpdump -B 4096 -n -i ".$interface." -c ".$packet_dump_size." -w ".$dumps_directory."/attacklog-".$date."_.pcap");
                                 printf($date." Sleeping to prevent dumping too often.\n");
                                 sleep($time_sleep_after_dump);
                         }
